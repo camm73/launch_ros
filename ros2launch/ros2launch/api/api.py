@@ -156,6 +156,12 @@ def launch_a_launch_file(
         argv=launch_file_arguments,
         noninteractive=noninteractive,
         debug=debug)
+
+    # If 'launch-prefix' launch file argument is also provided in the user input,
+    # the 'launch-prefix' option is applied since the last duplicate argument is used
+    if args is not None and args.launch_prefix is not None and len(args.launch_prefix) > 0:
+        launch_file_arguments.append(f'launch-prefix:={args.launch_prefix}')
+
     parsed_launch_arguments = parse_launch_arguments(launch_file_arguments)
     # Include the user provided launch file using IncludeLaunchDescription so that the
     # location of the current launch file is set.
